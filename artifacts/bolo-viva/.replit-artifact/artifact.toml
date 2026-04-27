@@ -1,0 +1,31 @@
+kind = "web"
+previewPath = "/"
+title = "Bolo VIVA"
+version = "1.0.0"
+id = "artifacts/bolo-viva"
+router = "path"
+
+[[integratedSkills]]
+name = "react-vite"
+version = "1.0.0"
+
+[[services]]
+name = "web"
+paths = [ "/" ]
+localPort = 18385
+
+[services.development]
+run = "pnpm --filter @workspace/bolo-viva run dev"
+
+[services.production]
+build = [ "pnpm", "--filter", "@workspace/bolo-viva", "run", "build" ]
+publicDir = "artifacts/bolo-viva/dist/public"
+serve = "static"
+
+[[services.production.rewrites]]
+from = "/*"
+to = "/index.html"
+
+[services.env]
+PORT = "18385"
+BASE_PATH = "/"
